@@ -20,6 +20,9 @@ class GitHubUserSpec extends AnyFeatureSpec with GivenWhenThen with Matchers:
       val response = simpleHttpClient.send(request)
       Then("I get the response with HTTP status code 200")
       response.code mustBe StatusCode(200)
+      response.body must include("https://hiquality.dev")
+      response.body must startWith("{")
+      response.body must endWith("}")
 
     Scenario("GitHub User Does Not Exist"):
       Given("a GitHub account does not exist")

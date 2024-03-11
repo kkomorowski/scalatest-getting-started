@@ -1,4 +1,4 @@
-import org.scalatest.GivenWhenThen
+import org.scalatest.{EitherValues, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.must.Matchers
 import sttp.client3.circe.asJson
@@ -7,7 +7,7 @@ import sttp.client3.{UriContext, quickRequest}
 import sttp.model.StatusCode
 import sttp.model.StatusCode.{NotFound, Ok}
 
-class GitHubUserDetailsSpec extends AnyFeatureSpec with GivenWhenThen with Matchers:
+class GitHubUserDetailsSpec extends AnyFeatureSpec with GivenWhenThen with Matchers with EitherValues:
 
   import io.circe.generic.auto._
 
@@ -25,8 +25,7 @@ class GitHubUserDetailsSpec extends AnyFeatureSpec with GivenWhenThen with Match
       Then("I get the response with status 'OK'")
       response.code mustBe Ok
       And("the response body contains correct user, blog and email address")
-      response.body.isRight mustBe true
-      val user = response.body.toOption.get
+      val user = response.body.value
       user.login mustBe "kkomorowski"
       user.blog mustBe "https://hiquality.dev"
       user.email mustBe empty

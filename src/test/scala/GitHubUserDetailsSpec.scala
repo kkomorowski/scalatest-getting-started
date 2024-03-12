@@ -1,9 +1,10 @@
+import io.circe
 import org.scalatest.{EitherValues, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.matchers.must.Matchers
 import sttp.client3.circe.asJson
 import sttp.client3.quick.simpleHttpClient
-import sttp.client3.{UriContext, quickRequest}
+import sttp.client3.{Response, ResponseException, UriContext, quickRequest}
 import sttp.model.StatusCode
 import sttp.model.StatusCode.{NotFound, Ok}
 
@@ -11,7 +12,13 @@ class GitHubUserDetailsSpec extends AnyFeatureSpec with GivenWhenThen with Match
 
   import io.circe.generic.auto._
 
-  case class GitHubUserProfile(login: String, blog: String, email: Option[String])
+  case class GitHubUserProfile(
+                                login: String,
+                                id: Int,
+                                name: String,
+                                company: Option[String],
+                                blog: String
+                              )
 
   Feature("GitHub User Profile Details"):
 
@@ -28,7 +35,7 @@ class GitHubUserDetailsSpec extends AnyFeatureSpec with GivenWhenThen with Match
       val user = response.body.value
       user.login mustBe "kkomorowski"
       user.blog mustBe "https://hiquality.dev"
-      user.email mustBe empty
+      user.company mustBe empty
 
     Scenario("GitHub User Details Check - Failing"):
       Given("GitHub user does not exists")

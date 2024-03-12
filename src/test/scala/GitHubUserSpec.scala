@@ -23,6 +23,7 @@ class GitHubUserSpec extends AnyFeatureSpec with GivenWhenThen with Matchers:
       response.body must include("https://hiquality.dev")
       response.body must startWith("{")
       response.body must endWith("}")
+      response.body must fullyMatch regex """.*"blog":"(https://)?hiquality\.dev".*"""
 
     Scenario("GitHub User Does Not Exist"):
       Given("a GitHub account does not exist")

@@ -1,9 +1,9 @@
-scalaVersion := "3.3.1"
+scalaVersion := "3.5.0"
 
-val circeVersion = "0.14.6"
-val sttpVersion = "3.9.3"
+val circeVersion = "0.14.10"
+val sttpVersion = "3.9.8"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.17" % "test"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.19" % "test"
 libraryDependencies += "com.softwaremill.sttp.client3" %% "core" % sttpVersion
 libraryDependencies += "com.softwaremill.sttp.client3" %% "circe" % sttpVersion
 libraryDependencies += "io.circe" %% "circe-core" % circeVersion
